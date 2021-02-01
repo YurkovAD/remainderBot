@@ -1,4 +1,4 @@
-package telegram;
+package com.company.telegram;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,13 +7,10 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import telegram.commands.service.HelpCommand;
-import telegram.commands.service.StartCommand;
-import utils.Utils;
+import com.company.telegram.commands.service.HelpCommand;
+import com.company.telegram.commands.service.StartCommand;
+import com.company.utils.Utils;
 
-/**
- * Created by yurkov.ad on 27.01.2021.
- */
 public final class Bot extends TelegramLongPollingCommandBot {
     private final String BOT_NAME;
     private final String BOT_TOKEN;

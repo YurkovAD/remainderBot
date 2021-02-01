@@ -1,4 +1,4 @@
-package telegram.commands.service;
+package com.company.telegram.commands.service;
 
 
 import org.slf4j.Logger;
@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
-import utils.Utils;
+import com.company.utils.Utils;
 
 public class StartCommand extends ServiceCommand {
     public StartCommand(String identifier, String description) {

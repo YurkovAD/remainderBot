@@ -1,4 +1,4 @@
-package utils;
+package com.company.utils;
 
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.User;
