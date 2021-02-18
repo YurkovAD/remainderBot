@@ -56,7 +56,8 @@ public final class Bot extends TelegramLongPollingCommandBot {
         Message msg = update.getMessage();
         Long chatId = msg.getChatId();
         String userName = Utils.getUserName(msg);
-        String answer = "Заглушка";
+        String answer = "Простите, я не понимаю Вас. Похоже, что Вы ввели сообщение, не соответствующее формату\n\n" +
+                "Возможно, Вам поможет /help";
         setAnswer(chatId, userName, answer);
 
     }
