@@ -1,5 +1,9 @@
 package com.company.telegram;
 
+import com.company.telegram.commands.service.HelpCommand;
+import com.company.telegram.commands.service.StartCommand;
+import com.company.telegram.commands.user.RemindCommand;
+import com.company.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
@@ -7,9 +11,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import com.company.telegram.commands.service.HelpCommand;
-import com.company.telegram.commands.service.StartCommand;
-import com.company.utils.Utils;
+
 
 public final class Bot extends TelegramLongPollingCommandBot {
     private final String BOT_NAME;
@@ -27,14 +29,17 @@ public final class Bot extends TelegramLongPollingCommandBot {
 //        logger.debug("Класс обработки сообщения, не являющегося командой, создан");
         register(new StartCommand("start", "Старт"));
         logger.debug("Команда start создана");
+        register(new HelpCommand("help", "Помощь"));
+        logger.debug("Команда help создана");
+        register(new RemindCommand("remind", "Создать задание"));
+        logger.debug("Команда remind создана");
 //        register(new PlusCommand("plus", "Сложение"));
 //        logger.debug("Команда plus создана");
 //        register(new MinusCommand("minus", "Вычитание"));
 //        logger.debug("Команда minus создана");
 //        register(new PlusMinusCommand("plusminus", "Сложение и вычитание"));
 //        logger.debug("Команда plusminus создана");
-        register(new HelpCommand("help", "Помощь"));
-        logger.debug("Команда help создана");
+
 //        register(new SettingsCommand("settings", "Мои настройки"));
 //        logger.debug("Команда settings создана");
 //        userSettings = new HashMap<>();
