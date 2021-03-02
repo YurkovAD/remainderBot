@@ -31,6 +31,7 @@ public class RemindCommand extends BotCommand {
             try {
                 absSender.execute(message);
             } catch (TelegramApiException e) {
+                logger.error(String.format("Error! Task is null!"));
                 e.printStackTrace();
             }
             return;
