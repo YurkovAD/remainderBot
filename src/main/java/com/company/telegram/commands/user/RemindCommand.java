@@ -25,18 +25,17 @@ public class RemindCommand extends BotCommand {
         SendMessage message = new SendMessage();
         message.setChatId(chat.getId().toString());
 
-        if (task == null) {
+        if (task == null || task.isEmpty()) {
             System.out.println("task: " + task);
             logger.error(String.format ("User {} is trying to set empty name."), user, this.getCommandIdentifier());
             message.setText("You should use non-empty name!");
             System.out.println(message);
 
-//            message.
+
             try {
                 absSender.execute(message);
             } catch (TelegramApiException e) {
                 logger.error(String.format("Error! Task is null!"));
-                e.printStackTrace();
             }
             return;
         }
