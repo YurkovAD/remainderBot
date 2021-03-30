@@ -26,6 +26,7 @@ public class RemindCommand extends BotCommand {
             System.out.println("task: " + task);
             logger.error(String.format ("User {} is trying to set empty name."), user, this.getCommandIdentifier());
             message.setText("Задание не может быть пустым!");
+
             System.out.println(message);
 
             try {
