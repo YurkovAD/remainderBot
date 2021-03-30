@@ -9,9 +9,6 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-/**
- * Суперкласс для команд создания заданий с различными операциями
- */
 public class RemindCommand extends BotCommand {
 
     public RemindCommand(String commandIdentifier, String description) {
@@ -28,9 +25,8 @@ public class RemindCommand extends BotCommand {
         if (task == null || task.isEmpty()) {
             System.out.println("task: " + task);
             logger.error(String.format ("User {} is trying to set empty name."), user, this.getCommandIdentifier());
-            message.setText("You should use non-empty name!");
+            message.setText("Задание не может быть пустым!");
             System.out.println(message);
-
 
             try {
                 absSender.execute(message);
@@ -98,6 +94,5 @@ public class RemindCommand extends BotCommand {
 //    }
 //
     private Logger logger = LoggerFactory.getLogger(RemindCommand.class);
-//
 
 }
