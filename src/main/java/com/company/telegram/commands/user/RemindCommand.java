@@ -1,5 +1,7 @@
 package com.company.telegram.commands.user;
 
+import com.company.exceptions.TaskException;
+import com.company.exceptions.TaskTimeException;
 import com.company.logic.BotTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,11 +30,8 @@ public class RemindCommand extends BotCommand {
         message.setChatId(chat.getId().toString());
 
         if (task == null || task.isEmpty()) {
-            System.out.println("task: " + task);
             logger.error(String.format ("User {} is trying to set empty task."), user, this.getCommandIdentifier());
             message.setText("Задание не может быть пустым!");
-
-            System.out.println(message);
 
             try {
                 absSender.execute(message);
@@ -47,7 +46,17 @@ public class RemindCommand extends BotCommand {
             absSender.execute(message);
         } catch (TelegramApiException e) {
             e.printStackTrace();
+        } catch (NumberFormatException e) {
+            System.out.println("Неверный формат задачи!");
+            return;
+        } catch (TaskException e) {
+            System.out.println(e.getMessage());
+            return;
+        } catch (TaskTimeException e) {
+            System.out.println(e.getMessage());
+            return;
         }
+
     }
 
     //    private BotTask botTask;

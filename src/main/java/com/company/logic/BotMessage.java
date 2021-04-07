@@ -44,19 +44,8 @@ public class BotMessage {
                 '}';
     }
 
-    public static BotMessage createBotMessage(String task) {
-        try {
+    public static BotMessage createBotMessage(String task) throws NumberFormatException, TaskException, TaskTimeException{
             TaskValidator.validate(task);
             return new BotMessage(Utils.getTaskMessage(task), Date.from(Utils.getDateTime(task).atZone(ZoneId.systemDefault()).toInstant()));
-        } catch (NumberFormatException e) {
-            System.out.println("Неверный формат задачи!");
-            return null;
-        } catch (TaskException e) {
-            System.out.println(e.getMessage());
-            return null;
-        } catch (TaskTimeException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
+}
 }
