@@ -39,11 +39,9 @@ public class RemindCommand extends BotCommand {
             message.setText("Задание " + task + " создано");
             sendMess(absSender, message);
             BotTask.createTask(botTask);
-            message.setText("пора делать " + botTask.getBotMessage().toString());
+            message.setText("пора делать " + task);
+            Thread.sleep(botTask.getBotMessage().getDateTime().getTime() - 1);
             sendMess(absSender, message);
-            /*absSender.execute(message);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();*/
         } catch (NumberFormatException e) {
             logger.error(String.format ("Wrong format of task!"), user, this.getCommandIdentifier());
             message.setText("Неверный формат задачи!");
@@ -56,6 +54,8 @@ public class RemindCommand extends BotCommand {
             logger.error(String.format (e.getMessage()), user, this.getCommandIdentifier());
             message.setText(e.getMessage());
             sendMess(absSender, message);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
     }
