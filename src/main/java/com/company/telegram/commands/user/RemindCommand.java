@@ -32,31 +32,37 @@ public class RemindCommand extends BotCommand {
         if (task == null || task.isEmpty()) {
             logger.error(String.format ("User {} is trying to set empty task."), user, this.getCommandIdentifier());
             message.setText("Задание не может быть пустым!");
-
-            try {
-                absSender.execute(message);
-            } catch (TelegramApiException e) {
-                logger.error(String.format("Error! Task is null!"));
-            }
-            return;
+            sendMess(absSender, message);
         }
         message.setText("Задание " + task + " создано");
         try {
             BotTask botTask = new BotTask(createBotMessage(task), new Timer());
-            absSender.execute(message);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
+            sendMess(absSender, message);
         } catch (NumberFormatException e) {
-            System.out.println("Неверный формат задачи!");
+            logger.error(String.format ("Wrong format of task!"), user, this.getCommandIdentifier());
+            message.setText(e.getMessage());
+            sendMess(absSender, message);
             return;
         } catch (TaskException e) {
-            System.out.println(e.getMessage());
+            logger.error(String.format (e.getMessage()), user, this.getCommandIdentifier());
+            message.setText(e.getMessage());
+            sendMess(absSender, message);
             return;
         } catch (TaskTimeException e) {
-            System.out.println(e.getMessage());
+            logger.error(String.format (e.getMessage()), user, this.getCommandIdentifier());
+            message.setText(e.getMessage());
+            sendMess(absSender, message);
             return;
         }
 
+    }
+
+    private void sendMess (AbsSender absSender, SendMessage message) {
+        try {
+            absSender.execute(message);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
     }
 
     //    private BotTask botTask;
