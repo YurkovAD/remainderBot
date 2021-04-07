@@ -34,10 +34,12 @@ public class RemindCommand extends BotCommand {
             message.setText("Задание не может быть пустым!");
             sendMess(absSender, message);
         }
-        message.setText("Задание " + task + " создано");
         try {
             BotTask botTask = new BotTask(createBotMessage(task), new Timer());
-            sendMess(absSender, message);
+            message.setText("Задание " + task + " создано");
+            absSender.execute(message);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
         } catch (NumberFormatException e) {
             logger.error(String.format ("Wrong format of task!"), user, this.getCommandIdentifier());
             message.setText(e.getMessage());
