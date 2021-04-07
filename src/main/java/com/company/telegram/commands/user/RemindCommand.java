@@ -40,7 +40,7 @@ public class RemindCommand extends BotCommand {
             message.setText("Задание " + task + " создано");
             sendMess(absSender, message);
             BotTask.createTask(botTask);
-            message.setText("пора делать " + task);
+            message.setText("Напоминаю! " + task);
             Thread.sleep(botTask.getBotMessage().getDateTime().getTime() - new Date().getTime() - 1);
             sendMess(absSender, message);
         } catch (NumberFormatException e) {
@@ -58,7 +58,6 @@ public class RemindCommand extends BotCommand {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 
     private void sendMess (AbsSender absSender, SendMessage message) {
@@ -68,57 +67,5 @@ public class RemindCommand extends BotCommand {
             e.printStackTrace();
         }
     }
-
-    //    private BotTask botTask;
-//
-//    RemindCommand(String identifier, String description, BotTask botTask) {
-//        super(identifier, description);
-//        this.botTask = botTask;
-//    }
-//
-//    /**
-//     * Отправка ответа пользователю
-//     */
-//    void sendAnswer(AbsSender absSender, Long chatId, BotTask botTask, String description,
-//                    String commandName, String userName) {
-//        try {
-//            absSender.execute(createDocument(chatId, botTask, description));
-//        } catch (IOException | RuntimeException e) {
-//            logger.error(String.format("Ошибка %s. Команда %s. Пользователь: %s", e.getMessage(), commandName, userName));
-//            sendError(absSender, chatId, commandName, userName);
-//            e.printStackTrace();
-//        } catch (TelegramApiException e) {
-//            logger.error(String.format("Ошибка %s. Команда %s. Пользователь: %s", e.getMessage(), commandName, userName));
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    /**
-//     * Создание документа для отправки пользователю
-//     * @param chatId id чата
-//     * @param operations список типов операций (сложение и/или вычитание)
-//     * @param fileName имя, которое нужно присвоить файлу
-//     */
-//    private SendDocument createDocument(Long chatId, List<OperationEnum> operations, String fileName) throws IOException {
-//        FileInputStream stream = service.getPlusMinusFile(operations, Bot.getUserSettings(chatId));
-//        SendDocument document = new SendDocument();
-//        document.setChatId(chatId.toString());
-//        document.setDocument(new InputFile(stream, String.format("%s.docx", fileName)));
-//        return document;
-//    }
-//
-//    /**
-//     * Отправка пользователю сообщения об ошибке
-//     */
-//    private void sendError(AbsSender absSender, Long chatId, String commandName, String userName) {
-//        try {
-//            absSender.execute(new SendMessage(chatId.toString(), "Задача не может быть пустой!"));
-//        } catch (TelegramApiException e) {
-//            logger.error(String.format("Ошибка %s. Команда %s. Пользователь: %s", e.getMessage(), commandName, userName));
-//            e.printStackTrace();
-//        }
-//    }
-//
     private Logger logger = LoggerFactory.getLogger(RemindCommand.class);
-
 }

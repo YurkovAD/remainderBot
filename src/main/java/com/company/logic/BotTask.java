@@ -34,7 +34,7 @@ public class BotTask extends TimerTask {
 
     @Override
     public void run() {
-        System.out.println(botMessage.getMessge());
+
         System.out.println("task " + botMessage.getMessge() + " was invoked at " + LocalDateTime.now());
         timer.cancel();
     }
@@ -42,6 +42,7 @@ public class BotTask extends TimerTask {
     public static void createTask (BotTask botTask) {
         if (botTask.getBotMessage() != null) {
             botTask.getTimer().schedule(botTask, botTask.getBotMessage().getDateTime());
+
         }
     }
 
@@ -51,6 +52,6 @@ public class BotTask extends TimerTask {
     }
 
     public static void deleteTask(BotTask botTask) {
-        botTask.getTimer().cancel();
+        botTask.getTimer().purge();
     }
 }
