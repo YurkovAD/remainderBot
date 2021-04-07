@@ -1,4 +1,4 @@
-package com.company.telegram.botTools;
+package com.company.logic;
 
 import com.company.exceptions.TaskException;
 import com.company.exceptions.TaskTimeException;

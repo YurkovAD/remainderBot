@@ -1,4 +1,4 @@
-package com.company.telegram.botTools;
+package com.company.logic;
 
 import java.time.LocalDateTime;
 import java.util.Timer;

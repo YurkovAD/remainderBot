@@ -1,5 +1,6 @@
 package com.company.telegram.commands.user;
 
+import com.company.logic.BotTask;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
@@ -8,6 +9,10 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import java.util.Timer;
+
+import static com.company.logic.BotMessage.createBotMessage;
 
 public class RemindCommand extends BotCommand {
 
@@ -36,9 +41,10 @@ public class RemindCommand extends BotCommand {
             }
             return;
         }
-        message.setText(task + "создана");
+        message.setText("Задание " + task + " создано");
         try {
-            absSender.execute(message );
+            BotTask botTask = new BotTask(createBotMessage(task), new Timer());
+            absSender.execute(message);
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
