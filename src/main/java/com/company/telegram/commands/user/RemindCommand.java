@@ -12,6 +12,7 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.Date;
 import java.util.Timer;
 
 import static com.company.logic.BotMessage.createBotMessage;
@@ -40,7 +41,7 @@ public class RemindCommand extends BotCommand {
             sendMess(absSender, message);
             BotTask.createTask(botTask);
             message.setText("пора делать " + task);
-            Thread.sleep(botTask.getBotMessage().getDateTime().getTime() - 1);
+            Thread.sleep(botTask.getBotMessage().getDateTime().getTime() - new Date().getTime() - 1);
             sendMess(absSender, message);
         } catch (NumberFormatException e) {
             logger.error(String.format ("Wrong format of task!"), user, this.getCommandIdentifier());
