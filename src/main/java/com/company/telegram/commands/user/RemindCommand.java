@@ -36,8 +36,10 @@ public class RemindCommand extends BotCommand {
         }
         try {
             BotTask botTask = new BotTask(createBotMessage(task), new Timer());
-            BotTask.createTask(botTask);
             message.setText("Задание " + task + " создано");
+            sendMess(absSender, message);
+            BotTask.createTask(botTask);
+            message.setText("пора делать "botTask.getBotMessage().toString());
             sendMess(absSender, message);
             /*absSender.execute(message);
         } catch (TelegramApiException e) {
