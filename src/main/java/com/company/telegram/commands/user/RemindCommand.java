@@ -36,25 +36,24 @@ public class RemindCommand extends BotCommand {
         }
         try {
             BotTask botTask = new BotTask(createBotMessage(task), new Timer());
+            BotTask.createTask(botTask);
             message.setText("Задание " + task + " создано");
-            absSender.execute(message);
+            sendMess(absSender, message);
+            /*absSender.execute(message);
         } catch (TelegramApiException e) {
-            e.printStackTrace();
+            e.printStackTrace();*/
         } catch (NumberFormatException e) {
             logger.error(String.format ("Wrong format of task!"), user, this.getCommandIdentifier());
-            message.setText(e.getMessage());
+            message.setText("Неверный формат задачи!");
             sendMess(absSender, message);
-            return;
         } catch (TaskException e) {
             logger.error(String.format (e.getMessage()), user, this.getCommandIdentifier());
             message.setText(e.getMessage());
             sendMess(absSender, message);
-            return;
         } catch (TaskTimeException e) {
             logger.error(String.format (e.getMessage()), user, this.getCommandIdentifier());
             message.setText(e.getMessage());
             sendMess(absSender, message);
-            return;
         }
 
     }
