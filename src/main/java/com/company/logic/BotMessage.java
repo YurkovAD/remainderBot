@@ -1,9 +1,6 @@
 package com.company.logic;
 
-import com.company.exceptions.TaskException;
-import com.company.exceptions.TaskTimeException;
 import com.company.utils.Utils;
-import com.company.validator.TaskValidator;
 
 import java.time.ZoneId;
 import java.util.Date;
@@ -44,8 +41,8 @@ public class BotMessage {
                 '}';
     }
 
-    public static BotMessage createBotMessage(String task) throws NumberFormatException, TaskException, TaskTimeException{
-            TaskValidator.validate(task);
+    public static BotMessage createBotMessage(String task) throws NumberFormatException/*, TaskException, TaskTimeException*/{
+//            TaskValidator.validate(task);
             return new BotMessage(Utils.getTaskMessage(task), Date.from(Utils.getDateTime(task).atZone(ZoneId.systemDefault()).toInstant()));
 }
 }

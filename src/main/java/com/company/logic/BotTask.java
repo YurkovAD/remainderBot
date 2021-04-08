@@ -42,7 +42,23 @@ public class BotTask extends TimerTask {
         this.timer = timer;
     }
 
-    @Override
+    public AbsSender getAbsSender() {
+        return absSender;
+    }
+
+    public void setAbsSender(AbsSender absSender) {
+        this.absSender = absSender;
+    }
+
+    public SendMessage getMessage() {
+        return message;
+    }
+
+    public void setMessage(SendMessage message) {
+        this.message = message;
+    }
+
+        @Override
     public void run() {
         logger.info("task " + botMessage.getMessge() + " was invoked at " + LocalDateTime.now());
         sendMess(absSender, message);
