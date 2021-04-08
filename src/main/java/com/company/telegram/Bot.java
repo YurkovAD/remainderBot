@@ -64,7 +64,6 @@ public final class Bot extends TelegramLongPollingCommandBot {
         String answer = "Простите, я не понимаю Вас. Похоже, что Вы ввели сообщение, не соответствующее формату\n\n" +
                 "Возможно, Вам поможет /help";
         setAnswer(chatId, userName, answer);
-
     }
 
     /**
