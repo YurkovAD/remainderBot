@@ -31,10 +31,10 @@ public class RemindCommand extends BotCommand {
 
         isNullTask(task, absSender, user, message);
         try {
-            message.setText("Напоминаю! " + task);
             BotTask botTask = new BotTask(createBotMessage(task), new Timer(), absSender, message);
             message.setText("Задание " + task + " создано");
             sendMess(absSender, message);
+            message.setText("Напоминаю! " + task);
             BotTask.createTask(botTask);
 //            message.setText("Напоминаю! " + task);
 //            Thread.sleep(botTask.getBotMessage().getDateTime().getTime() - new Date().getTime() - 1);
