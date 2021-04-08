@@ -3,6 +3,8 @@ package com.company.validator;
 import com.company.exceptions.TaskException;
 import com.company.exceptions.TaskTimeException;
 import com.company.utils.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,7 +24,8 @@ public class TaskValidator {
         if (Utils.getDateTime(task).isBefore(LocalDateTime.now())) {
             throw new TaskTimeException("Указано некорректное время!");
         } else {
-            System.out.println("Task time is valid");
+            logger.info("Task time is valid");
+//            System.out.println("Task time is valid");
         }
     }
 
@@ -31,7 +34,8 @@ public class TaskValidator {
         if( Utils.getDateTime(task).isAfter(after)) {
             throw new TaskTimeException("Указано некорректное время!");
         } else {
-            System.out.println("Task time is valid");
+            logger.info("Task time is valid");
+//            System.out.println("Task time is valid");
         }
     }
 
@@ -39,7 +43,10 @@ public class TaskValidator {
         if (task == null || task.equals("") || task.indexOf(',') < 0 || task.indexOf(':') < 0) {
             throw new TaskException("Неверный формат задачи!");
         } else {
-            System.out.println("Task is valid");
+            logger.info("Task is valid");
+//            System.out.println("Task is valid");
         }
     }
+
+    private static Logger logger = LoggerFactory.getLogger(TaskValidator.class);
 }

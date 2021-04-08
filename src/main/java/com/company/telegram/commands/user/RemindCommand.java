@@ -12,7 +12,6 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.Date;
 import java.util.Timer;
 
 import static com.company.logic.BotMessage.createBotMessage;
@@ -30,19 +29,16 @@ public class RemindCommand extends BotCommand {
         SendMessage message = new SendMessage();
         message.setChatId(chat.getId().toString());
 
-        if (task == null || task.isEmpty()) {
-            logger.error(String.format ("User {} is trying to set empty task."), user, this.getCommandIdentifier());
-            message.setText("Задание не может быть пустым!");
-            sendMess(absSender, message);
-        }
+        isNullTask(task, absSender, user, message);
         try {
-            BotTask botTask = new BotTask(createBotMessage(task), new Timer());
+            message.setText("Напоминаю! " + task);
+            BotTask botTask = new BotTask(createBotMessage(task), new Timer(), absSender, message);
             message.setText("Задание " + task + " создано");
             sendMess(absSender, message);
             BotTask.createTask(botTask);
-            message.setText("Напоминаю! " + task);
-            Thread.sleep(botTask.getBotMessage().getDateTime().getTime() - new Date().getTime() - 1);
-            sendMess(absSender, message);
+//            message.setText("Напоминаю! " + task);
+//            Thread.sleep(botTask.getBotMessage().getDateTime().getTime() - new Date().getTime() - 1);
+//            sendMess(absSender, message);
         } catch (NumberFormatException e) {
             logger.error(String.format ("Wrong format of task!"), user, this.getCommandIdentifier());
             message.setText("Неверный формат задачи!");
@@ -55,8 +51,16 @@ public class RemindCommand extends BotCommand {
             logger.error(String.format (e.getMessage()), user, this.getCommandIdentifier());
             message.setText(e.getMessage());
             sendMess(absSender, message);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } //catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    private void isNullTask(String task, AbsSender absSender, User user, SendMessage message) {
+        if (task == null || task.isEmpty()) {
+            logger.error(String.format ("User {} is trying to set empty task."), user, this.getCommandIdentifier());
+            message.setText("Задание не может быть пустым!");
+            sendMess(absSender, message);
         }
     }
 
