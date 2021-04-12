@@ -28,27 +28,28 @@ public class RemindCommand extends BotCommand {
         SendMessage message = new SendMessage();
         message.setChatId(chat.getId().toString());
 
-        TaskValidator.validate(task, absSender, user,  message, this.getCommandIdentifier());
+        if(TaskValidator.validate(task, absSender, user,  message, this.getCommandIdentifier())){
 //        isNullTask(task, absSender, user, message);
-        try {
-            BotTask botTask = new BotTask(createBotMessage(task), new Timer(), absSender, message);
-            message.setText("Задание " + task + " создано");
-            sendMess(absSender, message);
-            message.setText("Напоминаю! " + task);
-            BotTask.createTask(botTask);
-        } catch (NumberFormatException e) {
-            logger.error(String.format ("Wrong format of task!"), user, this.getCommandIdentifier());
-            message.setText("Неверный формат задачи!");
-            sendMess(absSender, message);
-      } //catch (TaskException e) {
-//            logger.error(String.format (e.getMessage()), user, this.getCommandIdentifier());
-//            message.setText(e.getMessage());
-//            sendMess(absSender, message);
-//        } catch (TaskTimeException e) {
-//            logger.error(String.format (e.getMessage()), user, this.getCommandIdentifier());
-//            message.setText(e.getMessage());
-//            sendMess(absSender, message);
-//        }
+            try {
+                BotTask botTask = new BotTask(createBotMessage(task), new Timer(), absSender, message);
+                message.setText("Задание " + task + " создано");
+                sendMess(absSender, message);
+                message.setText("Напоминаю! " + task);
+                BotTask.createTask(botTask);
+            } catch (NumberFormatException e) {
+                logger.error(String.format ("Wrong format of task!"), user, this.getCommandIdentifier());
+                message.setText("Неверный формат задачи!");
+                sendMess(absSender, message);
+          } //catch (TaskException e) {
+    //            logger.error(String.format (e.getMessage()), user, this.getCommandIdentifier());
+    //            message.setText(e.getMessage());
+    //            sendMess(absSender, message);
+    //        } catch (TaskTimeException e) {
+    //            logger.error(String.format (e.getMessage()), user, this.getCommandIdentifier());
+    //            message.setText(e.getMessage());
+    //            sendMess(absSender, message);
+    //        }
+        }
     }
 
 //    private void isNullTask(String task, AbsSender absSender, User user, SendMessage message) {

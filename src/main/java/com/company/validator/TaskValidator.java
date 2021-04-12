@@ -19,28 +19,29 @@ import java.time.LocalTime;
  * Created by yurkov.ad on 09.02.2021.
  */
 public class TaskValidator {
-    public static void validate(String task, AbsSender absSender, User user, SendMessage message, String commandIdentifier) {
+    public static Boolean validate(String task, AbsSender absSender, User user, SendMessage message, String commandIdentifier) {
         try{
             isNullTask(task, absSender, user, message, commandIdentifier);
             validateTaskMessage(task, absSender, user, message, commandIdentifier);
             beforeTasktime(task, absSender, user, message, commandIdentifier);
             afterTastTime(task, absSender, user, message, commandIdentifier);
+            return true;
         } catch(EmptyTaskException e) {
             logger.error(String.format ("User {} is trying to set empty task."), user, commandIdentifier);
 //            message.setText("Задание не может быть пустым!");
             message.setText(e.getMessage());
             sendMess(absSender, message);
-            return;
+            return false;
         } catch(TaskTimeException e) {
             logger.error(String.format (e.getMessage()), user, commandIdentifier);
             message.setText(e.getMessage());
             sendMess(absSender, message);
-            return;
+            return false;
         } catch(TaskException e) {
             logger.error(String.format (e.getMessage()), user, commandIdentifier);
             message.setText(e.getMessage());
             sendMess(absSender, message);
-            return;
+            return false;
         }
 //        catch (NumberFormatException e) {
 //            logger.error(String.format ("Wrong format of task!"), user, commandIdentifier);
