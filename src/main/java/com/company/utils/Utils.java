@@ -3,6 +3,7 @@ package com.company.utils;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.User;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -27,7 +28,7 @@ public class Utils {
         return (user.getUserName() != null) ? user.getUserName() : String.format("%s %s", user.getLastName(), user.getFirstName());
     }
 
-    public static LocalDateTime getDateTime(String task) throws NumberFormatException {
+    public static LocalDateTime getDateTime(String task) throws NumberFormatException, DateTimeException {
 
         return LocalDateTime.of(LocalDate.now(), getTime(task));
     }
