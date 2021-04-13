@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.company.telegram.Bot.taskList;
+
 /**
  * Created by yurkov.ad on 08.02.2021.
  */
@@ -68,6 +70,7 @@ public class BotTask extends TimerTask {
     public static void createTask (BotTask botTask) {
         if (botTask.getBotMessage() != null) {
             botTask.getTimer().schedule(botTask, botTask.getBotMessage().getDateTime());
+            taskList.remove(botTask);
         }
     }
 

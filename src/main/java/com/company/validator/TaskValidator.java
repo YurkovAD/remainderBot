@@ -88,7 +88,7 @@ public class TaskValidator /*implements BotMessageSender*/{
         }
     }
 
-    public static void sendMess (AbsSender absSender, SendMessage message) {
+    private static void sendMess (AbsSender absSender, SendMessage message) {
         try {
             absSender.execute(message);
         } catch (TelegramApiException e) {

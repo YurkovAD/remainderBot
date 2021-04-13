@@ -1,5 +1,6 @@
 package com.company.telegram;
 
+import com.company.logic.BotTask;
 import com.company.telegram.commands.service.HelpCommand;
 import com.company.telegram.commands.service.StartCommand;
 import com.company.telegram.commands.user.RemindCommand;
@@ -19,7 +20,7 @@ import java.util.List;
 public final class Bot extends TelegramLongPollingCommandBot {
     private final String BOT_NAME;
     private final String BOT_TOKEN;
-    public static List<String> taskList = new ArrayList<>();
+    public static List<BotTask> taskList = new ArrayList<>();
 //    @Getter
 //    private final User user;
 

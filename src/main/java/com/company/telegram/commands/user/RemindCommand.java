@@ -26,17 +26,17 @@ public class RemindCommand extends BotCommand implements BotMessageSender{
         String task = String.join(" ", strings);
         SendMessage message = new SendMessage();
         message.setChatId(chat.getId().toString());
-        System.out.println("taskList before add" + taskList.size());
+        System.out.println("taskList size " + taskList.size());
 
         if (validate(task, absSender, user,  message, this.getCommandIdentifier())) {
-            taskList.add(task);
-            System.out.println(taskList.size());
-            System.out.println("task " +  task + "added to tasklist");
             BotTask botTask = new BotTask(createBotMessage(task), new Timer(), absSender, message);
+            taskList.add(botTask);
+            System.out.println("taskList size " + taskList.size());
             message.setText("Задание " + task + " создано");
             sendMess(absSender, message);
             message.setText("Напоминаю! " + task);
             BotTask.createTask(botTask);
+            System.out.println("taskList size " + taskList.size());
         }
     }
 //    private Logger logger = LoggerFactory.getLogger(RemindCommand.class);
