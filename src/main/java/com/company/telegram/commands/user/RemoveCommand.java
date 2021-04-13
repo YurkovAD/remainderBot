@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,9 +52,10 @@ public class RemoveCommand extends BotCommand implements BotMessageSender {
                 message.setText("Задание " + botTask.getBotMessage().getMessge() + " удалено!");
                 sendMess(absSender, message);
             } else {
+                SimpleDateFormat formater = new SimpleDateFormat("hh.mm");
                 message.setText("Введиет порядковый номер задания, которое нужно удалить:\r\n");
                 tmpTasks.forEach(tmpT -> {
-                    message.setText(message.getText() + tmpT.getBotMessage().getMessge() + ", " + tmpT.getBotMessage().getDateTime() + "\r\n");
+                    message.setText(message.getText() + tmpT.getBotMessage().getMessge() + ", " + formater.format(tmpT.getBotMessage().getDateTime()) + "\r\n");
                 });
                 sendMess(absSender, message);
             }
