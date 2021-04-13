@@ -84,6 +84,7 @@ public class BotTask extends TimerTask implements BotMessageSender{
 
     public void deleteTask(BotTask botTask) {
         botTask.getTimer().cancel();
+        taskList.remove(botTask);
     }
 
     private Logger logger = LoggerFactory.getLogger(BotTask.class);

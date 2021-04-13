@@ -3,6 +3,7 @@ package com.company.telegram;
 import com.company.telegram.commands.service.HelpCommand;
 import com.company.telegram.commands.service.StartCommand;
 import com.company.telegram.commands.user.RemindCommand;
+import com.company.telegram.commands.user.RemoveCommand;
 import com.company.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,8 @@ public final class Bot extends TelegramLongPollingCommandBot {
         logger.debug("Команда help создана");
         register(new RemindCommand("remind", "Создать задание"));
         logger.debug("Команда remind создана");
+        register(new RemoveCommand("remove", "Удалить задание"));
+        logger.debug("Команда remove создана");
 //        this.user = new User();
 //        logger.debug("Класс обработки сообщения, не являющегося командой, создан");
 //        register(new PlusCommand("plus", "Сложение"));

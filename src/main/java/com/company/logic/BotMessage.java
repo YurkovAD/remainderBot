@@ -41,8 +41,7 @@ public class BotMessage {
                 '}';
     }
 
-    public static BotMessage createBotMessage(String task) throws NumberFormatException/*, TaskException, TaskTimeException*/{
-//            TaskValidator.validate(task);
+    public static BotMessage createBotMessage(String task) {
             return new BotMessage(Utils.getTaskMessage(task), Date.from(Utils.getDateTime(task).atZone(ZoneId.systemDefault()).toInstant()));
 }
 }
