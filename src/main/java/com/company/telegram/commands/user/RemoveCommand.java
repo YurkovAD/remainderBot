@@ -46,7 +46,8 @@ public class RemoveCommand extends BotCommand implements BotMessageSender {
                 message.setText("В моём списке нет такой задачи!");
                 sendMess(absSender, message);
             } else if(tmpTasks.size() == 1 ){
-                botTask.deleteTask(tmpTasks.get(0));
+                botTask = tmpTasks.get(0);
+                botTask.deleteTask(botTask);
                 message.setText("Задание удалено");
                 sendMess(absSender, message);
             }
