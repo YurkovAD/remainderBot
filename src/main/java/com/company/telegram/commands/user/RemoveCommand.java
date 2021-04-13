@@ -34,7 +34,7 @@ public class RemoveCommand extends BotCommand implements BotMessageSender {
             List<BotTask> tmpTasks = new ArrayList<>();
             taskList.forEach(bt -> {
 //                try {
-                    if(bt.getBotMessage().equals(task)) {
+                    if(bt.getBotMessage().getMessge().equals(task)) {
                         tmpTasks.add(bt);
                     }
 //                } catch(Exception e) {
@@ -43,7 +43,7 @@ public class RemoveCommand extends BotCommand implements BotMessageSender {
             });
             //delete
             if(tmpTasks.size() == 0 || tmpTasks.isEmpty()){
-                message.setText("В моем списке нет такой задачи");
+                message.setText("В моём списке нет такой задачи!");
                 sendMess(absSender, message);
             } else if(tmpTasks.size() == 1 ){
                 botTask.deleteTask(tmpTasks.get(0));
