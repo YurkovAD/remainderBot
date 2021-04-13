@@ -48,7 +48,13 @@ public class RemoveCommand extends BotCommand implements BotMessageSender {
             } else if(tmpTasks.size() == 1 ){
                 botTask = tmpTasks.get(0);
                 botTask.deleteTask(botTask);
-                message.setText("Задание удалено");
+                message.setText("Задание " + botTask.getBotMessage().getMessge() + " удалено!");
+                sendMess(absSender, message);
+            } else {
+                message.setText("Введиет порядковый номер задания, которое нужно удалить:/r/n");
+                tmpTasks.forEach(tmpT -> {
+                    message.setText(message + tmpT.getBotMessage().getMessge() + ", " + tmpT.getBotMessage().getDateTime() + "/r/n");
+                });
                 sendMess(absSender, message);
             }
         }
