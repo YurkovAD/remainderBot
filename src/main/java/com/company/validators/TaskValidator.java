@@ -1,4 +1,4 @@
-package com.company.validator;
+package com.company.validators;
 
 import com.company.exceptions.EmptyTaskException;
 import com.company.exceptions.TaskException;

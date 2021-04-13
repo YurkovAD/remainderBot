@@ -1,6 +1,5 @@
 package com.company.telegram;
 
-import com.company.logic.BotMessage;
 import com.company.telegram.commands.service.HelpCommand;
 import com.company.telegram.commands.service.StartCommand;
 import com.company.telegram.commands.user.RemindCommand;
@@ -13,14 +12,10 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public final class Bot extends TelegramLongPollingCommandBot {
     private final String BOT_NAME;
     private final String BOT_TOKEN;
-    public static List<BotMessage> taskList = new ArrayList<>();
 //    @Getter
 //    private final User user;
 
@@ -30,14 +25,14 @@ public final class Bot extends TelegramLongPollingCommandBot {
         this.BOT_NAME = botName;
         this.BOT_TOKEN = botToken;
         logger.debug("Имя и токен присвоены");
-//        this.user = new User();
-//        logger.debug("Класс обработки сообщения, не являющегося командой, создан");
         register(new StartCommand("start", "Старт"));
         logger.debug("Команда start создана");
         register(new HelpCommand("help", "Помощь"));
         logger.debug("Команда help создана");
         register(new RemindCommand("remind", "Создать задание"));
         logger.debug("Команда remind создана");
+//        this.user = new User();
+//        logger.debug("Класс обработки сообщения, не являющегося командой, создан");
 //        register(new PlusCommand("plus", "Сложение"));
 //        logger.debug("Команда plus создана");
 //        register(new MinusCommand("minus", "Вычитание"));

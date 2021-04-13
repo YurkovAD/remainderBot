@@ -1,21 +1,21 @@
 package com.company.logic;
 
+import com.company.utils.BotMessageSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.bots.AbsSender;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.time.LocalDateTime;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.company.telegram.Bot.taskList;
+import static com.company.telegram.commands.user.RemindCommand.taskList;
 
 /**
  * Created by yurkov.ad on 08.02.2021.
  */
-public class BotTask extends TimerTask {
+public class BotTask extends TimerTask implements BotMessageSender{
     private BotMessage botMessage;
     private Timer timer;
     private AbsSender absSender;
@@ -65,33 +65,34 @@ public class BotTask extends TimerTask {
         logger.info("task " + botMessage.getMessge() + " was invoked at " + LocalDateTime.now());
         sendMess(absSender, message);
         timer.cancel();
-        taskList.remove(botMessage);
-        System.out.println("taskList size after /remind " + taskList.size());
+        taskList.remove(this);
+        System.out.println("taskList after /remind " + taskList.size());
     }
 
-    public static void createTask (BotTask botTask) {
+    public void createTask (BotTask botTask) {
         if (botTask.getBotMessage() != null) {
             botTask.getTimer().schedule(botTask, botTask.getBotMessage().getDateTime());
-            taskList.add(botTask.getBotMessage());
+            taskList.add(botTask);
+            System.out.println("taskList after createTask  " + taskList.size());
         }
     }
 
-    public static void updateTask (BotTask botTaskOld, BotTask botTasknew) {
+    public void updateTask (BotTask botTaskOld, BotTask botTasknew) {
         deleteTask(botTaskOld);
         createTask(botTasknew);
     }
 
-    public static void deleteTask(BotTask botTask) {
-        botTask.getTimer().purge();
+    public void deleteTask(BotTask botTask) {
+        botTask.getTimer().cancel();
     }
 
-    private void sendMess (AbsSender absSender, SendMessage message) {
-        try {
-            absSender.execute(message);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void sendMess (AbsSender absSender, SendMessage message) {
+//        try {
+//            absSender.execute(message);
+//        } catch (TelegramApiException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private Logger logger = LoggerFactory.getLogger(BotTask.class);
 }
