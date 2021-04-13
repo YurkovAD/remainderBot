@@ -32,7 +32,7 @@ public class RemindCommand extends BotCommand implements BotMessageSender {
             message.setText("Задание " + task + " создано");
             sendMess(absSender, message);
             message.setText("Напоминаю! " + task);
-            System.out.println("taskList before createTask " taskList.size());
+            System.out.println("taskList before createTask " + taskList.size());
             botTask.createTask(botTask);
         }
     }
