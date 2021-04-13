@@ -66,14 +66,14 @@ public class BotTask extends TimerTask implements BotMessageSender{
         sendMess(absSender, message);
         timer.cancel();
         taskList.remove(this);
-        System.out.println("taskList after /remind " + taskList.size());
+//        System.out.println("taskList after /remind " + taskList.size());
     }
 
     public void createTask (BotTask botTask) {
         if (botTask.getBotMessage() != null) {
             botTask.getTimer().schedule(botTask, botTask.getBotMessage().getDateTime());
             taskList.add(botTask);
-            System.out.println("taskList after createTask  " + taskList.size());
+//            System.out.println("taskList after createTask  " + taskList.size());
         }
     }
 
@@ -85,14 +85,6 @@ public class BotTask extends TimerTask implements BotMessageSender{
     public void deleteTask(BotTask botTask) {
         botTask.getTimer().cancel();
     }
-
-//    private void sendMess (AbsSender absSender, SendMessage message) {
-//        try {
-//            absSender.execute(message);
-//        } catch (TelegramApiException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private Logger logger = LoggerFactory.getLogger(BotTask.class);
 }

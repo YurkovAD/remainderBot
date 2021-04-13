@@ -3,13 +3,13 @@ package com.company.validators;
 import com.company.exceptions.EmptyTaskException;
 import com.company.exceptions.TaskException;
 import com.company.exceptions.TaskTimeException;
+import com.company.utils.BotMessageSender;
 import com.company.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -19,8 +19,8 @@ import java.time.LocalTime;
 /**
  * Created by yurkov.ad on 09.02.2021.
  */
-public class TaskValidator /*implements BotMessageSender*/{
-    public static Boolean validate(String task, AbsSender absSender, User user, SendMessage message, String commandIdentifier) {
+public class TaskValidator implements BotMessageSender {
+    public /*static*/ Boolean validate(String task, AbsSender absSender, User user, SendMessage message, String commandIdentifier) {
         try{
             isNullTask(task);
             validateTaskMessage(task);
@@ -55,7 +55,7 @@ public class TaskValidator /*implements BotMessageSender*/{
         }
     }
 
-    private static void isNullTask(String task) throws EmptyTaskException{
+    private /*static*/ void isNullTask(String task) throws EmptyTaskException{
         if (task == null || task.isEmpty()) {
             throw new EmptyTaskException("Задание не может быть пустым!");
         } else {
@@ -63,7 +63,7 @@ public class TaskValidator /*implements BotMessageSender*/{
         }
     }
 
-    private static void beforeTasktime(String task) throws TaskTimeException {
+    private /*static*/ void beforeTasktime(String task) throws TaskTimeException {
         if (Utils.getDateTime(task).isBefore(LocalDateTime.now())) {
             throw new TaskTimeException("Указано некорректное время!");
         } else {
@@ -71,7 +71,7 @@ public class TaskValidator /*implements BotMessageSender*/{
         }
     }
 
-    private static void afterTastTime(String task) throws TaskTimeException, DateTimeException {
+    private /*static*/ void afterTastTime(String task) throws TaskTimeException, DateTimeException {
         LocalDateTime after = LocalDateTime.of(LocalDate.now(), LocalTime.of(23,59,59));
         if( Utils.getDateTime(task).isAfter(after)) {
             throw new TaskTimeException("Указано некорректное время!");
@@ -80,7 +80,7 @@ public class TaskValidator /*implements BotMessageSender*/{
         }
     }
 
-    private static void validateTaskMessage(String task) throws TaskException {
+    private /*static*/ void validateTaskMessage(String task) throws TaskException {
         if (task == null || task.equals("") || task.indexOf(',') < 0 || task.indexOf(':') < 0) {
             throw new TaskException("Неверный формат задачи!");
         } else {
@@ -88,13 +88,13 @@ public class TaskValidator /*implements BotMessageSender*/{
         }
     }
 
-    private static void sendMess (AbsSender absSender, SendMessage message) {
-        try {
-            absSender.execute(message);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
+//    private static void sendMess (AbsSender absSender, SendMessage message) {
+//        try {
+//            absSender.execute(message);
+//        } catch (TelegramApiException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private static Logger logger = LoggerFactory.getLogger(TaskValidator.class);
 }
