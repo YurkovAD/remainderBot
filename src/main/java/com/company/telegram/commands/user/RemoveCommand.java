@@ -52,7 +52,7 @@ public class RemoveCommand extends BotCommand implements BotMessageSender {
                 message.setText("Задание " + botTask.getBotMessage().getMessge() + " удалено!");
                 sendMess(absSender, message);
             } else {
-                SimpleDateFormat formater = new SimpleDateFormat("hh.mm");
+                SimpleDateFormat formater = new SimpleDateFormat("HH.mm");
                 message.setText("Введиет порядковый номер задания, которое нужно удалить:\r\n");
                 tmpTasks.forEach(tmpT -> {
                     message.setText(message.getText() + tmpT.getBotMessage().getMessge() + ", " + formater.format(tmpT.getBotMessage().getDateTime()) + "\r\n");
