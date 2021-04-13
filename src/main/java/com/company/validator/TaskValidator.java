@@ -19,7 +19,7 @@ import java.time.LocalTime;
 /**
  * Created by yurkov.ad on 09.02.2021.
  */
-public class TaskValidator {
+public class TaskValidator /*implements BotMessageSender*/{
     public static Boolean validate(String task, AbsSender absSender, User user, SendMessage message, String commandIdentifier) {
         try{
             isNullTask(task);
@@ -29,7 +29,6 @@ public class TaskValidator {
             return true;
         } catch(EmptyTaskException e) {
             logger.error(String.format ("User {} is trying to set empty task."), user, commandIdentifier);
-//            message.setText("Задание не может быть пустым!");
             message.setText(e.getMessage());
             sendMess(absSender, message);
             return false;
@@ -59,9 +58,6 @@ public class TaskValidator {
     private static void isNullTask(String task) throws EmptyTaskException{
         if (task == null || task.isEmpty()) {
             throw new EmptyTaskException("Задание не может быть пустым!");
-//            logger.error(String.format ("User {} is trying to set empty task."), user, botCommand.getCommandIdentifier());
-//            message.setText("Задание не может быть пустым!");
-//            sendMess(absSender, message);
         } else {
             logger.info("Task is not null");
         }
@@ -71,7 +67,7 @@ public class TaskValidator {
         if (Utils.getDateTime(task).isBefore(LocalDateTime.now())) {
             throw new TaskTimeException("Указано некорректное время!");
         } else {
-            logger.info("Task time is valid");
+            logger.info("Before task time is valid");
         }
     }
 
@@ -80,7 +76,7 @@ public class TaskValidator {
         if( Utils.getDateTime(task).isAfter(after)) {
             throw new TaskTimeException("Указано некорректное время!");
         } else {
-            logger.info("Task time is valid");
+            logger.info("After task time is valid");
         }
     }
 
@@ -92,7 +88,7 @@ public class TaskValidator {
         }
     }
 
-    private static void sendMess (AbsSender absSender, SendMessage message) {
+    public static void sendMess (AbsSender absSender, SendMessage message) {
         try {
             absSender.execute(message);
         } catch (TelegramApiException e) {
