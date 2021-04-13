@@ -60,17 +60,19 @@ public class BotTask extends TimerTask {
         this.message = message;
     }
 
-        @Override
+    @Override
     public void run() {
         logger.info("task " + botMessage.getMessge() + " was invoked at " + LocalDateTime.now());
         sendMess(absSender, message);
         timer.cancel();
+        taskList.remove(botMessage);
+        System.out.println("taskList size after /remind " + taskList.size());
     }
 
     public static void createTask (BotTask botTask) {
         if (botTask.getBotMessage() != null) {
             botTask.getTimer().schedule(botTask, botTask.getBotMessage().getDateTime());
-            taskList.remove(botTask);
+            taskList.add(botTask.getBotMessage());
         }
     }
 
