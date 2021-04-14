@@ -34,6 +34,7 @@ public final class Bot extends TelegramLongPollingCommandBot {
         logger.debug("Команда remind создана");
         register(new RemoveCommand("remove", "Удалить задание"));
         logger.debug("Команда remove создана");
+
 //        this.user = new User();
 //        logger.debug("Класс обработки сообщения, не являющегося командой, создан");
 //        register(new PlusCommand("plus", "Сложение"));
