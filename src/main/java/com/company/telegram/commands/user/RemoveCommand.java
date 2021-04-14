@@ -11,6 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,32 +60,44 @@ public class RemoveCommand extends BotCommand implements BotMessageSender {
 //                    message.setText(message.getText() + tmpT.getBotMessage().getMessge() + ", " + formater.format(tmpT.getBotMessage().getDateTime()) + "\r\n");
 //                });
 //                sendMess(absSender, message);
-                sendMess(absSender, createDeleteKeyboard(message));
+                sendMess(absSender, createDeleteKeyboard(message, tmpTasks));
 
             }
         }
     }
 
-    private SendMessage createDeleteKeyboard(SendMessage message){
+    private SendMessage createDeleteKeyboard(SendMessage message, List<BotTask> tasks/*, AbsSender absSender*/){
+        SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-        InlineKeyboardButton inlineKeyboardButton1 = new InlineKeyboardButton();
-        InlineKeyboardButton inlineKeyboardButton2 = new InlineKeyboardButton();
-        inlineKeyboardButton1.setText("Тык");
-        inlineKeyboardButton1.setCallbackData("Button \"Тык\" has been pressed");
-        inlineKeyboardButton2.setText("Тык2");
-        inlineKeyboardButton2.setCallbackData("Button \"Тык2\" has been pressed");
-        List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
-        List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList<>();
-        keyboardButtonsRow1.add(inlineKeyboardButton1);
-//        keyboardButtonsRow1.add(new InlineKeyboardButton().setText("Fi4a").setCallbackData("CallFi4a"));
-        keyboardButtonsRow2.add(inlineKeyboardButton2);
         List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
-        rowList.add(keyboardButtonsRow1);
-        rowList.add(keyboardButtonsRow2);
+        List<InlineKeyboardButton> keyboardButtonsRow = new ArrayList<>();
+        tasks.forEach( task -> {
+            InlineKeyboardButton inlineKeyboardButton = new InlineKeyboardButton();
+            inlineKeyboardButton.setText(task.getBotMessage().getMessge() + ", " + formater.format(task.getBotMessage().getDateTime()));
+            inlineKeyboardButton.setCallbackData(callbackData(task/*, message, absSender*/));
+            keyboardButtonsRow.add(inlineKeyboardButton);
+            rowList.add(keyboardButtonsRow);
+        });
+//        InlineKeyboardButton inlineKeyboardButton1 = new InlineKeyboardButton();
+//        InlineKeyboardButton inlineKeyboardButton2 = new InlineKeyboardButton();
+//        inlineKeyboardButton1.setText("Тык");
+//        inlineKeyboardButton1.setCallbackData("Button \"Тык\" has been pressed");
+//        inlineKeyboardButton2.setText("Тык2");
+//        inlineKeyboardButton2.setCallbackData("Button \"Тык2\" has been pressed");
+//
+//        List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList<>();
+////        keyboardButtonsRow1.add(new InlineKeyboardButton().setText("Fi4a").setCallbackData("CallFi4a"));
+//        keyboardButtonsRow2.add(inlineKeyboardButton2);
+//        rowList.add(keyboardButtonsRow2);
         inlineKeyboardMarkup.setKeyboard(rowList);
         message.setText("выберите задачу, которую нужно удалить: ");
         message.setReplyMarkup(inlineKeyboardMarkup);
 
         return message;
+    }
+    private String callbackData (BotTask task/*,SendMessage message, AbsSender absSender*/){
+        task.deleteTask(task);
+        return "Задание " + task.getBotMessage().getMessge() + " удалено!";
+//        sendMess(absSender, message);
     }
 }
