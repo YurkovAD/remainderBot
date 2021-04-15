@@ -77,11 +77,6 @@ public class BotTask extends TimerTask implements BotMessageSender{
         }
     }
 
-    public void updateTask (BotTask botTaskOld, BotTask botTasknew) {
-        deleteTask(botTaskOld);
-        createTask(botTasknew);
-    }
-
     public void deleteTask(BotTask botTask) {
         botTask.getTimer().cancel();
         taskList.remove(botTask);

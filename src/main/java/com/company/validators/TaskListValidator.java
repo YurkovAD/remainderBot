@@ -26,6 +26,18 @@ public class TaskListValidator implements BotMessageSender {
              return false;
         }
     }
+    public Boolean validate(List<BotTask> taskList, AbsSender absSender, User user, SendMessage message, String commandIdentifier) {
+        try{
+            isNullTaskList(taskList);
+            return true;
+        } catch (EmptyTaskListException e) {
+            logger.error(String.format ("User's {} taskList is empty."), user, commandIdentifier);
+            message.setText(e.getMessage());
+            sendMess(absSender, message);
+            return false;
+        }
+    }
+
     private void isNullTaskList (List<BotTask> taskList) throws EmptyTaskListException{
         if(taskList == null || taskList.isEmpty()){
             throw new EmptyTaskListException("Список заданий пуст!");

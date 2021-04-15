@@ -2,6 +2,7 @@ package com.company.telegram;
 
 import com.company.telegram.commands.service.HelpCommand;
 import com.company.telegram.commands.service.StartCommand;
+import com.company.telegram.commands.user.ListCommand;
 import com.company.telegram.commands.user.RemindCommand;
 import com.company.telegram.commands.user.RemoveCommand;
 import com.company.utils.Utils;
@@ -13,12 +14,9 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-
 public final class Bot extends TelegramLongPollingCommandBot {
     private final String BOT_NAME;
     private final String BOT_TOKEN;
-//    @Getter
-//    private final User user;
 
     public Bot(String botName, String botToken) {
         super();
@@ -34,19 +32,8 @@ public final class Bot extends TelegramLongPollingCommandBot {
         logger.debug("Команда remind создана");
         register(new RemoveCommand("remove", "Удалить задание"));
         logger.debug("Команда remove создана");
-
-//        this.user = new User();
-//        logger.debug("Класс обработки сообщения, не являющегося командой, создан");
-//        register(new PlusCommand("plus", "Сложение"));
-//        logger.debug("Команда plus создана");
-//        register(new MinusCommand("minus", "Вычитание"));
-//        logger.debug("Команда minus создана");
-//        register(new PlusMinusCommand("plusminus", "Сложение и вычитание"));
-//        logger.debug("Команда plusminus создана");
-
-//        register(new SettingsCommand("settings", "Мои настройки"));
-//        logger.debug("Команда settings создана");
-//        userSettings = new HashMap<>();
+        register(new ListCommand("list", "Получить список задач"));
+        logger.debug("Команда list создана");
         logger.info("Бот создан!");
     }
 

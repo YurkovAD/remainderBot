@@ -36,5 +36,4 @@ public class RemindCommand extends BotCommand implements BotMessageSender {
             botTask.createTask(botTask);
         }
     }
-//    private Logger logger = LoggerFactory.getLogger(RemindCommand.class);
 }
