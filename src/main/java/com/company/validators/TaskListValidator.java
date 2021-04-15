@@ -30,7 +30,7 @@ public class TaskListValidator implements BotMessageSender {
             }
             return true;
         } catch (TaskException e) {
-            logger.error(String.format ("User is trying to add dublicate task"), user, commandIdentifier);
+            logger.error(String.format ("User {} is trying to add dublicate task"), user, commandIdentifier);
             message.setText("Такое задание уже создано!");
             sendMess(absSender, message);
             return false;
