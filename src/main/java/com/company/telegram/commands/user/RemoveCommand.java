@@ -31,13 +31,16 @@ public class RemoveCommand extends BotCommand implements BotMessageSender {
             SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
             taskList.forEach(bt -> {
                 String s = bt.getBotMessage().getMessge() + ", " + formater.format(bt.getBotMessage().getDateTime());
-                if(s.equals(task)) {
-                    BotTask botTask = bt;
-                    botTask.deleteTask(botTask);
-                    message.setText("Задание " + botTask.getBotMessage().getMessge() + " удалено!");
-                    sendMess(absSender, message);
+                if(taskList.contains(s)){
+                    if(s.equals(task)) {
+                        BotTask botTask = bt;
+                        botTask.deleteTask(botTask);
+                        message.setText("Задание " + botTask.getBotMessage().getMessge() + " удалено!");
+                        sendMess(absSender, message);
+                        return;
+                    }
                 } else {
-                    message.setText("В моём списке нет такой задачи!");
+                    message.setText("В моём списке нет такого задания!");
                     sendMess(absSender, message);
                 }
             });
