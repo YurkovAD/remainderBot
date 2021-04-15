@@ -9,6 +9,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -18,6 +19,7 @@ public class TaskListValidator implements BotMessageSender {
     public Boolean validate(List<BotTask> taskList, String task, AbsSender absSender, User user, SendMessage message, String commandIdentifier) {
         try{
             isNullTaskList(taskList);
+            containsTask(taskList, task);
             return true;
          } catch (EmptyTaskListException e) {
              logger.error(String.format ("User's {} taskList is empty."), user, commandIdentifier);
@@ -43,6 +45,18 @@ public class TaskListValidator implements BotMessageSender {
             throw new EmptyTaskListException("Список заданий пуст!");
         } else {
             logger.info("TaskList is not empty.");
+        }
+    }
+
+    private void containsTask(List<BotTask> taskList, String task) throws EmptyTaskListException{
+        SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
+        Boolean t = false;
+        for(BotTask bt : taskList){
+            String s = bt.getBotMessage().getMessge() + ", " + formater.format(bt.getBotMessage().getDateTime());
+            if(s.equals(task)) t = true;
+        }
+        if(!t) {
+            throw new EmptyTaskListException("В моём списке нет такого задания!");
         }
     }
 
