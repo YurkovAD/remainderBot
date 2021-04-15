@@ -27,33 +27,32 @@ public class RemoveCommand extends BotCommand implements BotMessageSender {
         message.setChatId(chat.getId().toString());
         String task = String.join(" ", strings);
 
+//        if(taskListValidator.validate(taskList, task, absSender, user, message, this.getCommandIdentifier())) {
+//            SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
+//            taskList.forEach(bt -> {
+//                String s = bt.getBotMessage().getMessge() + ", " + formater.format(bt.getBotMessage().getDateTime());
+//                if(s.equals(task)) {
+//                    BotTask botTask = bt;
+//                    botTask.deleteTask(botTask);
+//                    message.setText("Задание " + botTask.getBotMessage().getMessge() + " удалено!");
+//                    sendMess(absSender, message);
+//                    return;
+//                }
+//            });
+//        }
+
         if(taskListValidator.validate(taskList, task, absSender, user, message, this.getCommandIdentifier())) {
             SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
-//            if(containsTask(taskList, task, formater)){
-                taskList.forEach(bt -> {
-                    String s = bt.getBotMessage().getMessge() + ", " + formater.format(bt.getBotMessage().getDateTime());
-                    if(s.equals(task)) {
-                        BotTask botTask = bt;
-                        botTask.deleteTask(botTask);
-                        message.setText("Задание " + botTask.getBotMessage().getMessge() + " удалено!");
-                        sendMess(absSender, message);
-                        return;
-                    }
-                });
-//            } else {
-//                message.setText("В моём списке нет такого задания!");
-//                sendMess(absSender, message);
-//            }
+            for (BotTask bt : taskList) {
+                String s = bt.getBotMessage().getMessge() + ", " + formater.format(bt.getBotMessage().getDateTime());
+                if (s.equals(task)) {
+                    BotTask botTask = bt;
+                    botTask.deleteTask(botTask);
+                    message.setText("Задание " + botTask.getBotMessage().getMessge() + " удалено!");
+                    sendMess(absSender, message);
+                    return;
+                }
+            }
         }
     }
-
-//    private Boolean containsTask(List<BotTask> taskList, String task, SimpleDateFormat formater) {
-//        for(BotTask bt : taskList){
-//            String s = bt.getBotMessage().getMessge() + ", " + formater.format(bt.getBotMessage().getDateTime());
-//            if(s.equals(task))
-//            {return true;}
-//        }
-//
-//        return false;
-//    }
 }
