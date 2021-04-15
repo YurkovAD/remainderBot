@@ -2,6 +2,7 @@ package com.company.telegram.commands.user;
 
 import com.company.logic.BotTask;
 import com.company.utils.BotMessageSender;
+import com.company.validators.TaskListValidator;
 import com.company.validators.TaskValidator;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -23,16 +24,16 @@ public class RemindCommand extends BotCommand implements BotMessageSender {
     @Override
     public void execute(AbsSender absSender, User user, Chat chat, String[] strings) {
         TaskValidator taskValidator = new TaskValidator();
+        TaskListValidator listValidator = new TaskListValidator();
         String task = String.join(" ", strings);
         SendMessage message = new SendMessage();
         message.setChatId(chat.getId().toString());
 
-        if (taskValidator.validate(task, absSender, user,  message, this.getCommandIdentifier())) {
+        if (taskValidator.validate(task, absSender, user,  message, this.getCommandIdentifier()) && listValidator.isDublicateTask(taskList, task, absSender, user,  message, this.getCommandIdentifier())) {
             BotTask botTask = new BotTask(createBotMessage(task), new Timer(), absSender, message);
             message.setText("Задание " + task + " создано");
             sendMess(absSender, message);
             message.setText("Напоминаю! " + task);
-//            System.out.println("taskList before createTask " + taskList.size());
             botTask.createTask(botTask);
         }
     }

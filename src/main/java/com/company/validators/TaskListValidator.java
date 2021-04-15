@@ -1,6 +1,7 @@
 package com.company.validators;
 
 import com.company.exceptions.EmptyTaskListException;
+import com.company.exceptions.TaskException;
 import com.company.logic.BotTask;
 import com.company.utils.BotMessageSender;
 import org.slf4j.Logger;
@@ -16,6 +17,26 @@ import java.util.List;
  * Created by yurkov.ad on 13.04.2021.
  */
 public class TaskListValidator implements BotMessageSender {
+    public Boolean isDublicateTask(List<BotTask> taskList, String task, AbsSender absSender, User user, SendMessage message, String commandIdentifier) {
+        try{
+            SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
+            Boolean t = false;
+            for(BotTask bt : taskList){
+                String s = bt.getBotMessage().getMessge() + ", " + formater.format(bt.getBotMessage().getDateTime());
+                if(s.equals(task)) t = true;
+            }
+            if(t) {
+                throw new TaskException("Такое задание уже создано!");
+            }
+            return true;
+        } catch (TaskException e) {
+            logger.error(String.format ("User is trying to add dublicate task"), user, commandIdentifier);
+            message.setText("Такое задание уже создано!");
+            sendMess(absSender, message);
+            return false;
+        }
+    }
+
     public Boolean validate(List<BotTask> taskList, String task, AbsSender absSender, User user, SendMessage message, String commandIdentifier) {
         try{
             isNullTaskList(taskList);
