@@ -13,13 +13,15 @@ import org.telegram.telegrambots.meta.bots.AbsSender;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import static com.company.telegram.Bot.formater;
+
 /**
  * Created by yurkov.ad on 13.04.2021.
  */
 public class TaskListValidator implements BotMessageSender {
     public Boolean isDublicateTask(List<BotTask> taskList, String task, AbsSender absSender, User user, SendMessage message, String commandIdentifier) {
         try{
-            SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
+//            SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
             Boolean t = false;
             for(BotTask bt : taskList){
                 String s = bt.getBotMessage().getMessge() + ", " + formater.format(bt.getBotMessage().getDateTime());
@@ -70,7 +72,7 @@ public class TaskListValidator implements BotMessageSender {
     }
 
     private void containsTask(List<BotTask> taskList, String task) throws EmptyTaskListException{
-        SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
+//        SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
         Boolean t = false;
         for(BotTask bt : taskList){
             String s = bt.getBotMessage().getMessge() + ", " + formater.format(bt.getBotMessage().getDateTime());

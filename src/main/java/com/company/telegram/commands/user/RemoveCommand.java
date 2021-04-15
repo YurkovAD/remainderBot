@@ -9,8 +9,7 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 
-import java.text.SimpleDateFormat;
-
+import static com.company.telegram.Bot.formater;
 import static com.company.telegram.commands.user.RemindCommand.taskList;
 
 /**
@@ -28,7 +27,7 @@ public class RemoveCommand extends BotCommand implements BotMessageSender {
         String task = String.join(" ", strings);
 
         if(taskListValidator.validate(taskList, task, absSender, user, message, this.getCommandIdentifier())) {
-            SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
+//            SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
             for (BotTask bt : taskList) {
                 String s = bt.getBotMessage().getMessge() + ", " + formater.format(bt.getBotMessage().getDateTime());
                 if (s.equals(task)) {
