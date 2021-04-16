@@ -23,7 +23,6 @@ public class ListCommand extends BotCommand implements BotMessageSender {
         SendMessage message = new SendMessage();
         message.setText("Список задач на сегодня: \n\r");
         message.setChatId(chat.getId().toString());
-//        SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
 
         if(taskListValidator.validate(taskList, absSender, user, message, this.getCommandIdentifier())){
             sendMess(absSender, message);

@@ -27,7 +27,6 @@ public class RemoveCommand extends BotCommand implements BotMessageSender {
         String task = String.join(" ", strings);
 
         if(taskListValidator.validate(taskList, task, absSender, user, message, this.getCommandIdentifier())) {
-//            SimpleDateFormat formater = new SimpleDateFormat("HH:mm");
             for (BotTask bt : taskList) {
                 String s = bt.getBotMessage().getMessge() + ", " + formater.format(bt.getBotMessage().getDateTime());
                 if (s.equals(task)) {
